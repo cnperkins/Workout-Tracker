@@ -3,21 +3,11 @@ const db = require("../models");
 
 module.exports = function (app) {
 
-    //commnet in to prepopulate database
-    // db.Workout.find({}).then(function (res) {
-    //     console.log("Checking if db is populated");
-    //     if (res.length === 0) {
-    //         console.log("DB is empty");
-    //         require("./seeders/seed.js");
-    //     }
-    // });
-
     //get workouts
     app.get("/api/workouts", (req, res) => {
 
         db.Workout.find({}).then(dbWorkout => {
-            // console.log("ALL WORKOUTS");
-            // console.log(dbWorkout);
+
             dbWorkout.forEach(workout => {
                 var total = 0;
                 workout.exercises.forEach(e => {
@@ -52,8 +42,6 @@ module.exports = function (app) {
 
     //create workout
     app.post("/api/workouts", ({ body }, res) => {
-        // console.log("WORKOUT TO BE ADDED");
-        // console.log(body);
 
         db.Workout.create(body).then((dbWorkout => {
             res.json(dbWorkout);
